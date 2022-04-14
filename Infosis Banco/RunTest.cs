@@ -63,11 +63,12 @@ namespace Infosis_Banco
                         connectionDb.Niveis.Add(nivel);
                         connectionDb.SaveChanges();
                     }
-
+                    
                     var auxBenefitType = connectionDb.BenefitTypes.FirstOrDefault(x => x.Description == workSheet.Cells[linha, 5].Value.ToString());
                     if(auxBenefitType == null)
                     {
                         //criando tipos de benefício
+
                         BenefitType benefitType = new BenefitType();
                         benefitType.Description = workSheet.Cells[linha, 5].Value.ToString();
                         benefitType.Value = decimal.Parse(workSheet.Cells[linha, 6].Value.ToString());
@@ -110,10 +111,9 @@ namespace Infosis_Banco
                         connectionDb.SaveChanges();
                     }
 
+                    var benefitTypeId = connectionDb.BenefitTypes.FirstOrDefault(x => x.Description == workSheet.Cells[linha, 5].Value.ToString()).Id;
 
                     //criando beneficio
-                    var benefitTypeId = connectionDb.BenefitTypes.FirstOrDefault(x => x.Value == decimal.Parse(workSheet.Cells[linha, 6].Value.ToString())).Id;
-                    //
                     Benefit benefit = new Benefit();
                     benefit.BenefitTypeId = benefitTypeId;
                     benefit.NivelId = nivelId;
@@ -127,27 +127,31 @@ namespace Infosis_Banco
 
                     var benefitId = connectionDb.Benefits.FirstOrDefault(x => x.BenefitTypeId == benefitTypeId && x.NivelId == nivelId).Id;
                     var employeeId = connectionDb.Employees.FirstOrDefault(x => x.CPF == long.Parse(workSheet.Cells[linha, 12].Value.ToString())).Id;
-
-                    DepositVerification depositVerification = new DepositVerification();
-                    depositVerification.Value = int.Parse(workSheet.Cells[linha, 13].Value.ToString());
-                    depositVerification.Matureness = Convert.ToDateTime(workSheet.Cells[linha, 14].Value.ToString());
-                    depositVerification.BenefitId = benefitId;
-                    depositVerification.EmployeeId = employeeId;
+                    
+                    var findDepositVerification = connectionDb.DepositVerifications.FirstOrDefault(x => x.Value == int.Parse(workSheet.Cells[linha, 13].Value.ToString()));
+                    if(findDepositVerification == null)
+                    {
+                        DepositVerification depositVerification = new DepositVerification();
+                        depositVerification.Value = int.Parse(workSheet.Cells[linha, 13].Value.ToString());
+                        depositVerification.Matureness = Convert.ToDateTime(workSheet.Cells[linha, 14].Value.ToString());
+                        depositVerification.BenefitId = benefitId;
+                        depositVerification.EmployeeId = employeeId;
 
                     connectionDb.DepositVerifications.Add(depositVerification);
                     connectionDb.SaveChanges();
+                    }
 
                     //criando deposito
 
-                    Deposit deposit = new Deposit();
-                    deposit.DepositEmployeeValue = decimal.Parse(workSheet.Cells[linha, 15].Value.ToString());
-                    deposit.Date = Convert.ToDateTime(workSheet.Cells[linha, 16].Value.ToString());
-                    deposit.DepositVerificationId = depositVerification.Id;
+                        var depositVerificationsId = connectionDb.DepositVerifications.FirstOrDefault(x => x.Value == decimal.Parse(workSheet.Cells[linha, 13].Value.ToString())).Id;
+                        Deposit deposit = new Deposit();
+                        deposit.DepositEmployeeValue = decimal.Parse(workSheet.Cells[linha, 15].Value.ToString());
+                        deposit.Date = Convert.ToDateTime(workSheet.Cells[linha, 16].Value.ToString());
+                        deposit.DepositVerificationId = depositVerificationsId;
 
-                    connectionDb.Deposits.Add(deposit);
-                    connectionDb.SaveChanges();
-
-
+                        connectionDb.Deposits.Add(deposit);
+                        connectionDb.SaveChanges();
+  
                 }
             }
         }
