@@ -30,7 +30,7 @@ namespace Infosis_Banco
                     
                     //buscando valores da tabela Office
                     var findOffice = connectionDb.Offices.FirstOrDefault(x => x.Type == workSheet.Cells[linha, 1].Value.ToString());
-                    if (findOffice == null)
+                    if (findOffice == null) //verifica se o valor (Type) é nulo, se for, ele preenche com os dados
                     {
                         var office = new Office();
                         office.Type = workSheet.Cells[linha, 1].Value.ToString();
@@ -53,6 +53,7 @@ namespace Infosis_Banco
                         connectionDb.SaveChanges();
                     }
 
+                    
                     var findNivel = connectionDb.Niveis.FirstOrDefault(x=> x.Type == workSheet.Cells[linha, 4].Value.ToString());
                     if(findNivel == null)
                     {
@@ -63,12 +64,13 @@ namespace Infosis_Banco
                         connectionDb.Niveis.Add(nivel);
                         connectionDb.SaveChanges();
                     }
-                    
+                   
+
                     var auxBenefitType = connectionDb.BenefitTypes.FirstOrDefault(x => x.Description == workSheet.Cells[linha, 5].Value.ToString());
                     if(auxBenefitType == null)
                     {
-                        //criando tipos de benefício
 
+                        //criando tipos de benefício
                         BenefitType benefitType = new BenefitType();
                         benefitType.Description = workSheet.Cells[linha, 5].Value.ToString();
                         benefitType.Value = decimal.Parse(workSheet.Cells[linha, 6].Value.ToString());
@@ -78,13 +80,16 @@ namespace Infosis_Banco
                         connectionDb.SaveChanges();
                     }
 
+
+                    //CRIANDO MODALIDADE CARGO
+
+                    //buscando o Id de cada entidade que encaixa na Modalidade Cargo (ModalityOffice)
                     var officeId = connectionDb.Offices.FirstOrDefault(x => x.Type == workSheet.Cells[linha, 1].Value.ToString()).Id;
                     var nivelId = connectionDb.Niveis.FirstOrDefault(x => x.Type == workSheet.Cells[linha, 4].Value.ToString()).Id;
-                    //criando auxiliar para buscar os valores de hora e descricao
                     var aux = connectionDb.ContractModalitys.Where(x => x.Hour == int.Parse(workSheet.Cells[linha, 2].Value.ToString()));
                     var contractModalityId = aux.FirstOrDefault(x => x.Description == workSheet.Cells[linha, 3].Value.ToString()).Id;
 
-                    //criando modalidade de cargo
+                    //atribuindo o valor de cada id para modalidade cargo
                     ModalityOffice modalityOffice = new ModalityOffice();
                     modalityOffice.OfficeId = officeId;
                     modalityOffice.NivelId = nivelId;
@@ -93,8 +98,9 @@ namespace Infosis_Banco
                     connectionDb.ModalityOffices.Add(modalityOffice);
                     connectionDb.SaveChanges();
 
-                    var modalityOfficeId = connectionDb.ModalityOffices.FirstOrDefault(x => x.OfficeId == officeId && x.ContractModalityId == contractModalityId && x.NivelId == nivelId).Id;
 
+                    //pegando id de Modalidade Cargo para que possa se relacionar com a entidade Funcionário
+                    var modalityOfficeId = connectionDb.ModalityOffices.FirstOrDefault(x => x.OfficeId == officeId && x.ContractModalityId == contractModalityId && x.NivelId == nivelId).Id;
                     var findEmployee = connectionDb.Employees.FirstOrDefault(x => x.CPF == long.Parse(workSheet.Cells[linha, 12].Value.ToString()));
                     if (findEmployee == null)
                     {
@@ -105,7 +111,7 @@ namespace Infosis_Banco
                         employee.Address = workSheet.Cells[linha, 10].Value.ToString();
                         employee.Telephone = long.Parse(workSheet.Cells[linha, 11].Value.ToString());
                         employee.CPF = long.Parse(workSheet.Cells[linha, 12].Value.ToString());
-                        employee.ModalityOfficeId = modalityOfficeId;
+                        employee.ModalityOfficeId = modalityOfficeId; //buscando o id da modalidade cargo para atribuir ao funcionário
 
                         connectionDb.Employees.Add(employee);
                         connectionDb.SaveChanges();
@@ -122,15 +128,13 @@ namespace Infosis_Banco
                     connectionDb.SaveChanges();
 
 
-                    //criando DepositVerification (depositoBeneficio)
-                    //criando variavel BenefitId
-
                     var benefitId = connectionDb.Benefits.FirstOrDefault(x => x.BenefitTypeId == benefitTypeId && x.NivelId == nivelId).Id;
                     var employeeId = connectionDb.Employees.FirstOrDefault(x => x.CPF == long.Parse(workSheet.Cells[linha, 12].Value.ToString())).Id;
                     
                     var findDepositVerification = connectionDb.DepositVerifications.FirstOrDefault(x => x.Value == int.Parse(workSheet.Cells[linha, 13].Value.ToString()));
                     if(findDepositVerification == null)
                     {
+                        //criando DepositVerification (depositoBeneficio)
                         DepositVerification depositVerification = new DepositVerification();
                         depositVerification.Value = int.Parse(workSheet.Cells[linha, 13].Value.ToString());
                         depositVerification.Matureness = Convert.ToDateTime(workSheet.Cells[linha, 14].Value.ToString());
@@ -141,13 +145,14 @@ namespace Infosis_Banco
                     connectionDb.SaveChanges();
                     }
 
-                    //criando deposito
 
-                        var depositVerificationsId = connectionDb.DepositVerifications.FirstOrDefault(x => x.Value == decimal.Parse(workSheet.Cells[linha, 13].Value.ToString())).Id;
+                        //criando deposito
+                        //TIRAR DÚVIDA SOBRE A VERIFICAÇÃO 
+                     var depositVerificationsId = connectionDb.DepositVerifications.FirstOrDefault(x => x.Value == decimal.Parse(workSheet.Cells[linha, 13].Value.ToString())).Id;
                         Deposit deposit = new Deposit();
-                        deposit.DepositEmployeeValue = decimal.Parse(workSheet.Cells[linha, 15].Value.ToString());
+                        deposit.DepositEmployeeValue = decimal.Parse(workSheet.Cells[linha, 15].Value.ToString()); 
                         deposit.Date = Convert.ToDateTime(workSheet.Cells[linha, 16].Value.ToString());
-                        deposit.DepositVerificationId = depositVerificationsId;
+                        deposit.DepositVerificationId = depositVerificationsId; 
 
                         connectionDb.Deposits.Add(deposit);
                         connectionDb.SaveChanges();
