@@ -1,11 +1,11 @@
 ﻿namespace Infosis_Banco
 {
-    public class BenefitType
+    public class TipoBeneficio
     {
         public int Id { get; set; }
-        public string Description { get; set; }
-        public decimal Value { get; set; }
-        public decimal PercentDefault { get; set; }
+        public string Descricao { get; set; }
+        public decimal ValorTipoBeneficio { get; set; }
+        public decimal PorcentagemPadrao { get; set; }
 
         internal object FirstOrDefault(Func<object, bool> p)
         {

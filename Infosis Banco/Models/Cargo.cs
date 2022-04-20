@@ -1,8 +1,8 @@
 ﻿namespace Infosis_Banco
 {
-    public class Office
+    public class Cargo
     {
         public int Id { get; set; }
-        public string Type { get; set; }
+        public string Tipo { get; set; }
     }
 }

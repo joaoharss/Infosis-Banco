@@ -5,16 +5,16 @@ namespace Infosis_Banco
 {
     public class AppContext : DbContext
     {
-        public DbSet<Benefit> Benefits { get; set; }
-        public DbSet<BenefitType> BenefitTypes{ get; set; }
+        public DbSet<Beneficio> Beneficios { get; set; }
+        public DbSet<TipoBeneficio> TipoBeneficios{ get; set; }
         //public DbSet<Contract> Contracts { get; set; }
-        public DbSet<Deposit> Deposits { get; set; }
-        public DbSet<DepositVerification> DepositVerifications{ get; set; }
-        public DbSet<Employee> Employees { get; set; }
-        public DbSet<ModalityOffice> ModalityOffices{ get; set; }
-        public DbSet<Office> Offices { get; set; }
+        public DbSet<Deposito> Depositos { get; set; }
+        public DbSet<DepositoBeneficio> DepositoBeneficios{ get; set; }
+        public DbSet<Funcionario> Funcionarios { get; set; }
+        public DbSet<ModalidadeCargo> ModalidadeCargos{ get; set; }
+        public DbSet<Cargo> Cargos { get; set; }
         public DbSet<Nivel> Niveis { get; set; }
-        public DbSet<ContractModality> ContractModalitys { get; set; }
+        public DbSet<ModalidadeContrato> ModalidadeContratos { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
