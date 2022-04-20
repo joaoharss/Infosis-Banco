@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OfficeOpenXml;
+﻿using OfficeOpenXml;
 
 namespace Infosis_Banco
 {
-    public class RunTest
+    public class Run
     {
-        public RunTest() //construtor do path (.net 6.0)
+        public Run() //construtor do path (.net 6.0)
         {
 
         }

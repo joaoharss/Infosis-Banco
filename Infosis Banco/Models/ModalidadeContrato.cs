@@ -1,5 +1,4 @@
-﻿
-namespace Infosis_Banco
+﻿namespace Infosis_Banco
 {
     public class ModalidadeContrato
     {
