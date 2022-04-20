@@ -7,7 +7,6 @@ namespace Infosis_Banco
     {
         public DbSet<Beneficio> Beneficios { get; set; }
         public DbSet<TipoBeneficio> TipoBeneficios{ get; set; }
-        //public DbSet<Contract> Contracts { get; set; }
         public DbSet<Deposito> Depositos { get; set; }
         public DbSet<DepositoBeneficio> DepositoBeneficios{ get; set; }
         public DbSet<Funcionario> Funcionarios { get; set; }
