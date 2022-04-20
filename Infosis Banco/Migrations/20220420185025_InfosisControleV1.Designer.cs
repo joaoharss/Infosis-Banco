@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infosis_Banco.Migrations
 {
     [DbContext(typeof(AppContext))]
-    [Migration("20220414182519_InfosisControle")]
-    partial class InfosisControle
+    [Migration("20220420185025_InfosisControleV1")]
+    partial class InfosisControleV1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,30 +24,30 @@ namespace Infosis_Banco.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Infosis_Banco.Benefit", b =>
+            modelBuilder.Entity("Infosis_Banco.Beneficio", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("BenefitTypeId")
-                        .HasColumnType("int");
 
                     b.Property<int>("NivelId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.Property<int>("TipoBeneficioId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("BenefitTypeId");
+                    b.HasKey("Id");
 
                     b.HasIndex("NivelId");
 
-                    b.ToTable("Benefits");
+                    b.HasIndex("TipoBeneficioId");
+
+                    b.ToTable("Beneficios");
                 });
 
-            modelBuilder.Entity("Infosis_Banco.BenefitType", b =>
+            modelBuilder.Entity("Infosis_Banco.Cargo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -55,21 +55,15 @@ namespace Infosis_Banco.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Description")
+                    b.Property<string>("Tipo")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("PercentDefault")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("Value")
-                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("BenefitTypes");
+                    b.ToTable("Cargos");
                 });
 
-            modelBuilder.Entity("Infosis_Banco.ContractModality", b =>
+            modelBuilder.Entity("Infosis_Banco.Deposito", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -77,42 +71,23 @@ namespace Infosis_Banco.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Hour")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ContractModalitys");
-                });
-
-            modelBuilder.Entity("Infosis_Banco.Deposit", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("Date")
+                    b.Property<DateTime>("Data")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("DepositEmployeeValue")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("DepositVerificationId")
+                    b.Property<int>("DepositoBeneficioId")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("ValorDepositoFuncionario")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DepositVerificationId");
+                    b.HasIndex("DepositoBeneficioId");
 
-                    b.ToTable("Deposits");
+                    b.ToTable("Depositos");
                 });
 
-            modelBuilder.Entity("Infosis_Banco.DepositVerification", b =>
+            modelBuilder.Entity("Infosis_Banco.DepositoBeneficio", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -120,61 +95,61 @@ namespace Infosis_Banco.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("BenefitId")
+                    b.Property<int>("BeneficioId")
                         .HasColumnType("int");
 
-                    b.Property<int>("EmployeeId")
+                    b.Property<int>("FuncionarioId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Matureness")
+                    b.Property<decimal>("ValorDepositoBeneficio")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("Vencimento")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("Value")
-                        .HasColumnType("decimal(18,2)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("BenefitId");
+                    b.HasIndex("BeneficioId");
 
-                    b.HasIndex("EmployeeId");
+                    b.HasIndex("FuncionarioId");
 
-                    b.ToTable("DepositVerifications");
+                    b.ToTable("DepositoBeneficios");
                 });
 
-            modelBuilder.Entity("Infosis_Banco.Employee", b =>
+            modelBuilder.Entity("Infosis_Banco.Funcionario", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("CPF")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("LastName")
+                    b.Property<string>("Endereco")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ModalityOfficeId")
+                    b.Property<int>("ModalidadeCargoId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Nome")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("Telephone")
+                    b.Property<string>("Sobrenome")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("Telefone")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ModalityOfficeId");
+                    b.HasIndex("ModalidadeCargoId");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Funcionarios");
                 });
 
-            modelBuilder.Entity("Infosis_Banco.ModalityOffice", b =>
+            modelBuilder.Entity("Infosis_Banco.ModalidadeCargo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -182,24 +157,43 @@ namespace Infosis_Banco.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("ContractModalityId")
+                    b.Property<int>("CargoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ModalidadeContratoId")
                         .HasColumnType("int");
 
                     b.Property<int>("NivelId")
                         .HasColumnType("int");
 
-                    b.Property<int>("OfficeId")
+                    b.HasKey("Id");
+
+                    b.HasIndex("CargoId");
+
+                    b.HasIndex("ModalidadeContratoId");
+
+                    b.HasIndex("NivelId");
+
+                    b.ToTable("ModalidadeCargos");
+                });
+
+            modelBuilder.Entity("Infosis_Banco.ModalidadeContrato", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Descricao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Hora")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ContractModalityId");
-
-                    b.HasIndex("NivelId");
-
-                    b.HasIndex("OfficeId");
-
-                    b.ToTable("ModalityOffices");
+                    b.ToTable("ModalidadeContratos");
                 });
 
             modelBuilder.Entity("Infosis_Banco.Nivel", b =>
@@ -210,7 +204,7 @@ namespace Infosis_Banco.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Type")
+                    b.Property<string>("Tipo")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -218,7 +212,7 @@ namespace Infosis_Banco.Migrations
                     b.ToTable("Niveis");
                 });
 
-            modelBuilder.Entity("Infosis_Banco.Office", b =>
+            modelBuilder.Entity("Infosis_Banco.TipoBeneficio", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -226,19 +220,91 @@ namespace Infosis_Banco.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Type")
+                    b.Property<string>("Descricao")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("PorcentagemPadrao")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ValorTipoBeneficio")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Offices");
+                    b.ToTable("TipoBeneficios");
                 });
 
-            modelBuilder.Entity("Infosis_Banco.Benefit", b =>
+            modelBuilder.Entity("Infosis_Banco.Beneficio", b =>
                 {
-                    b.HasOne("Infosis_Banco.BenefitType", "BenefitType")
+                    b.HasOne("Infosis_Banco.Nivel", "Nivel")
                         .WithMany()
-                        .HasForeignKey("BenefitTypeId")
+                        .HasForeignKey("NivelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Infosis_Banco.TipoBeneficio", "TipoBeneficio")
+                        .WithMany()
+                        .HasForeignKey("TipoBeneficioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Nivel");
+
+                    b.Navigation("TipoBeneficio");
+                });
+
+            modelBuilder.Entity("Infosis_Banco.Deposito", b =>
+                {
+                    b.HasOne("Infosis_Banco.DepositoBeneficio", "DepositoBeneficio")
+                        .WithMany()
+                        .HasForeignKey("DepositoBeneficioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DepositoBeneficio");
+                });
+
+            modelBuilder.Entity("Infosis_Banco.DepositoBeneficio", b =>
+                {
+                    b.HasOne("Infosis_Banco.Beneficio", "Beneficio")
+                        .WithMany()
+                        .HasForeignKey("BeneficioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Infosis_Banco.Funcionario", "Funcionario")
+                        .WithMany()
+                        .HasForeignKey("FuncionarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Beneficio");
+
+                    b.Navigation("Funcionario");
+                });
+
+            modelBuilder.Entity("Infosis_Banco.Funcionario", b =>
+                {
+                    b.HasOne("Infosis_Banco.ModalidadeCargo", "ModalidadeCargo")
+                        .WithMany()
+                        .HasForeignKey("ModalidadeCargoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ModalidadeCargo");
+                });
+
+            modelBuilder.Entity("Infosis_Banco.ModalidadeCargo", b =>
+                {
+                    b.HasOne("Infosis_Banco.Cargo", "Cargo")
+                        .WithMany()
+                        .HasForeignKey("CargoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Infosis_Banco.ModalidadeContrato", "ModalidadeContrato")
+                        .WithMany()
+                        .HasForeignKey("ModalidadeContratoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -248,77 +314,11 @@ namespace Infosis_Banco.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("BenefitType");
+                    b.Navigation("Cargo");
+
+                    b.Navigation("ModalidadeContrato");
 
                     b.Navigation("Nivel");
-                });
-
-            modelBuilder.Entity("Infosis_Banco.Deposit", b =>
-                {
-                    b.HasOne("Infosis_Banco.DepositVerification", "DepositVerification")
-                        .WithMany()
-                        .HasForeignKey("DepositVerificationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("DepositVerification");
-                });
-
-            modelBuilder.Entity("Infosis_Banco.DepositVerification", b =>
-                {
-                    b.HasOne("Infosis_Banco.Benefit", "Benefit")
-                        .WithMany()
-                        .HasForeignKey("BenefitId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Infosis_Banco.Employee", "Employee")
-                        .WithMany()
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Benefit");
-
-                    b.Navigation("Employee");
-                });
-
-            modelBuilder.Entity("Infosis_Banco.Employee", b =>
-                {
-                    b.HasOne("Infosis_Banco.ModalityOffice", "ModalityOffice")
-                        .WithMany()
-                        .HasForeignKey("ModalityOfficeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ModalityOffice");
-                });
-
-            modelBuilder.Entity("Infosis_Banco.ModalityOffice", b =>
-                {
-                    b.HasOne("Infosis_Banco.ContractModality", "ContractModality")
-                        .WithMany()
-                        .HasForeignKey("ContractModalityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Infosis_Banco.Nivel", "Nivel")
-                        .WithMany()
-                        .HasForeignKey("NivelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Infosis_Banco.Office", "Office")
-                        .WithMany()
-                        .HasForeignKey("OfficeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ContractModality");
-
-                    b.Navigation("Nivel");
-
-                    b.Navigation("Office");
                 });
 #pragma warning restore 612, 618
         }

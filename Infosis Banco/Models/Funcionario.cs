@@ -10,6 +10,7 @@
         public long CPF { get; set; }
         public ModalidadeCargo ModalidadeCargo{ get; set; }
         public int ModalidadeCargoId { get; set; }
+        public IEnumerable<DepositoBeneficio> DepositoBeneficios { get; set; }
 
     }
 }

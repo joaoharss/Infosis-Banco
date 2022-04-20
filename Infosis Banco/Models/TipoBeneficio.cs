@@ -6,10 +6,7 @@
         public string Descricao { get; set; }
         public decimal ValorTipoBeneficio { get; set; }
         public decimal PorcentagemPadrao { get; set; }
+        public IEnumerable<Beneficio> Beneficios { get; set; }   
 
-        internal object FirstOrDefault(Func<object, bool> p)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

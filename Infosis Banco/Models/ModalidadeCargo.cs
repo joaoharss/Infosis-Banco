@@ -9,6 +9,7 @@
         public int CargoId { get; set; }
         public ModalidadeContrato ModalidadeContrato { get; set; }
         public int ModalidadeContratoId { get; set; }
+        public IEnumerable<Funcionario> Funcionarios { get; set; }
 
 
     }

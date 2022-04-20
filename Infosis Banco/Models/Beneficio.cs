@@ -7,6 +7,6 @@
         public int TipoBeneficioId { get; set; }
         public Nivel Nivel { get; set; }
         public int NivelId { get; set; }
-
+        public IEnumerable<DepositoBeneficio> DepositoBeneficios { get; set; }
     }
 }
