@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infosis_Banco.Migrations
 {
     [DbContext(typeof(AppContext))]
-    [Migration("20220420185025_InfosisControleV1")]
-    partial class InfosisControleV1
+    [Migration("20220426191952_infosiscontrolev1")]
+    partial class infosiscontrolev1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -237,13 +237,13 @@ namespace Infosis_Banco.Migrations
             modelBuilder.Entity("Infosis_Banco.Beneficio", b =>
                 {
                     b.HasOne("Infosis_Banco.Nivel", "Nivel")
-                        .WithMany()
+                        .WithMany("Beneficios")
                         .HasForeignKey("NivelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Infosis_Banco.TipoBeneficio", "TipoBeneficio")
-                        .WithMany()
+                        .WithMany("Beneficios")
                         .HasForeignKey("TipoBeneficioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -267,13 +267,13 @@ namespace Infosis_Banco.Migrations
             modelBuilder.Entity("Infosis_Banco.DepositoBeneficio", b =>
                 {
                     b.HasOne("Infosis_Banco.Beneficio", "Beneficio")
-                        .WithMany()
+                        .WithMany("DepositoBeneficios")
                         .HasForeignKey("BeneficioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Infosis_Banco.Funcionario", "Funcionario")
-                        .WithMany()
+                        .WithMany("DepositoBeneficios")
                         .HasForeignKey("FuncionarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -286,7 +286,7 @@ namespace Infosis_Banco.Migrations
             modelBuilder.Entity("Infosis_Banco.Funcionario", b =>
                 {
                     b.HasOne("Infosis_Banco.ModalidadeCargo", "ModalidadeCargo")
-                        .WithMany()
+                        .WithMany("Funcionarios")
                         .HasForeignKey("ModalidadeCargoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -297,19 +297,19 @@ namespace Infosis_Banco.Migrations
             modelBuilder.Entity("Infosis_Banco.ModalidadeCargo", b =>
                 {
                     b.HasOne("Infosis_Banco.Cargo", "Cargo")
-                        .WithMany()
+                        .WithMany("ModalidadeCargos")
                         .HasForeignKey("CargoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Infosis_Banco.ModalidadeContrato", "ModalidadeContrato")
-                        .WithMany()
+                        .WithMany("ModalidadeCargos")
                         .HasForeignKey("ModalidadeContratoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Infosis_Banco.Nivel", "Nivel")
-                        .WithMany()
+                        .WithMany("ModalidadeCargos")
                         .HasForeignKey("NivelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -319,6 +319,43 @@ namespace Infosis_Banco.Migrations
                     b.Navigation("ModalidadeContrato");
 
                     b.Navigation("Nivel");
+                });
+
+            modelBuilder.Entity("Infosis_Banco.Beneficio", b =>
+                {
+                    b.Navigation("DepositoBeneficios");
+                });
+
+            modelBuilder.Entity("Infosis_Banco.Cargo", b =>
+                {
+                    b.Navigation("ModalidadeCargos");
+                });
+
+            modelBuilder.Entity("Infosis_Banco.Funcionario", b =>
+                {
+                    b.Navigation("DepositoBeneficios");
+                });
+
+            modelBuilder.Entity("Infosis_Banco.ModalidadeCargo", b =>
+                {
+                    b.Navigation("Funcionarios");
+                });
+
+            modelBuilder.Entity("Infosis_Banco.ModalidadeContrato", b =>
+                {
+                    b.Navigation("ModalidadeCargos");
+                });
+
+            modelBuilder.Entity("Infosis_Banco.Nivel", b =>
+                {
+                    b.Navigation("Beneficios");
+
+                    b.Navigation("ModalidadeCargos");
+                });
+
+            modelBuilder.Entity("Infosis_Banco.TipoBeneficio", b =>
+                {
+                    b.Navigation("Beneficios");
                 });
 #pragma warning restore 612, 618
         }

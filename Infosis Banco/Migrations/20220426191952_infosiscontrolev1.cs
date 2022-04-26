@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infosis_Banco.Migrations
 {
-    public partial class InfosisControleV1 : Migration
+    public partial class infosiscontrolev1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -172,7 +172,7 @@ namespace Infosis_Banco.Migrations
                         column: x => x.FuncionarioId,
                         principalTable: "Funcionarios",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onUpdate: ReferentialAction.Cascade); //alterar onDelete para onUpdate para que não dê erro de cascata
                 });
 
             migrationBuilder.CreateTable(

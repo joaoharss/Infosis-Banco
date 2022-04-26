@@ -1,5 +1,6 @@
 ﻿using Infosis_Banco;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace Infosis_Banco
 {
@@ -8,9 +9,9 @@ namespace Infosis_Banco
         public DbSet<Beneficio> Beneficios { get; set; }
         public DbSet<TipoBeneficio> TipoBeneficios{ get; set; }
         public DbSet<Deposito> Depositos { get; set; }
-        public DbSet<DepositoBeneficio> DepositoBeneficios{ get; set; }
+        public DbSet<DepositoBeneficio> DepositoBeneficios { get; set; }
         public DbSet<Funcionario> Funcionarios { get; set; }
-        public DbSet<ModalidadeCargo> ModalidadeCargos{ get; set; }
+        public DbSet<ModalidadeCargo> ModalidadeCargos { get; set; }
         public DbSet<Cargo> Cargos { get; set; }
         public DbSet<Nivel> Niveis { get; set; }
         public DbSet<ModalidadeContrato> ModalidadeContratos { get; set; }
@@ -20,7 +21,6 @@ namespace Infosis_Banco
         {
             optionsBuilder.UseSqlServer(@"Data Source=WIN-LOLP65ONQT1\SQLEXPRESS;Initial Catalog=InfoSis Banco;Integrated Security=True");
         }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Beneficio>(entity =>
@@ -34,16 +34,21 @@ namespace Infosis_Banco
                 .HasForeignKey(a => a.NivelId);
             });
 
-            modelBuilder.Entity<DepositoBeneficio>(entity =>
-            {
-                entity.HasOne(d => d.Beneficio)
-                .WithMany(p => p.DepositoBeneficios)
-                .HasForeignKey(a => a.BeneficioId);
+            //modelBuilder.Entity<DepositoBeneficio>(entity =>
+            //{
+            //    entity.HasOne(d => d.Beneficio)
+            //    .WithMany(p => p.DepositoBeneficios)
+            //    .HasForeignKey(a => a.BeneficioId);
 
-                entity.HasOne(d => d.Funcionario)
-                .WithMany(p => p.DepositoBeneficios)
-                .HasForeignKey(a => a.FuncionarioId);
-            });
+
+            //    entity.HasOne(d => d.Funcionario)
+            //    .WithMany(p => p.DepositoBeneficios)
+            //    .HasForeignKey(a => a.FuncionarioId);
+
+                
+                
+            //});
+
 
             modelBuilder.Entity<Funcionario>(entity =>
             {
