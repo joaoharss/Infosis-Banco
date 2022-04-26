@@ -172,7 +172,7 @@ namespace Infosis_Banco.Migrations
                         column: x => x.FuncionarioId,
                         principalTable: "Funcionarios",
                         principalColumn: "Id",
-                        onUpdate: ReferentialAction.Cascade); //alterar onDelete para onUpdate para que não dê erro de cascata
+                        onUpdate: ReferentialAction.Cascade); //alterar onDelete para onUpdate para que não dê erro de cascata!
                 });
 
             migrationBuilder.CreateTable(
