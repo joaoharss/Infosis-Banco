@@ -219,13 +219,15 @@ namespace Infosis_Banco.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Descricao")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("NVARCHAR(50)");
 
                     b.Property<decimal>("PorcentagemPadrao")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("DECIMAL");
 
                     b.Property<decimal>("ValorTipoBeneficio")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("DECIMAL");
 
                     b.HasKey("Id");
 

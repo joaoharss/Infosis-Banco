@@ -82,19 +82,19 @@ namespace Infosis_Banco.Migrations
                         column: x => x.CargoId,
                         principalTable: "Cargos",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ModalidadeCargos_ModalidadeContratos_ModalidadeContratoId",
                         column: x => x.ModalidadeContratoId,
                         principalTable: "ModalidadeContratos",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ModalidadeCargos_Niveis_NivelId",
                         column: x => x.NivelId,
                         principalTable: "Niveis",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -114,13 +114,13 @@ namespace Infosis_Banco.Migrations
                         column: x => x.NivelId,
                         principalTable: "Niveis",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Beneficios_TipoBeneficios_TipoBeneficioId",
                         column: x => x.TipoBeneficioId,
                         principalTable: "TipoBeneficios",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -144,7 +144,7 @@ namespace Infosis_Banco.Migrations
                         column: x => x.ModalidadeCargoId,
                         principalTable: "ModalidadeCargos",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -166,7 +166,7 @@ namespace Infosis_Banco.Migrations
                         column: x => x.BeneficioId,
                         principalTable: "Beneficios",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_DepositoBeneficios_Funcionarios_FuncionarioId",
                         column: x => x.FuncionarioId,

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infosis_Banco.Migrations
 {
     [DbContext(typeof(AppContext))]
-    [Migration("20220427172645_Infosiscontrolev4")]
-    partial class Infosiscontrolev4
+    [Migration("20220427190738_Infosiscontrolev1")]
+    partial class Infosiscontrolev1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

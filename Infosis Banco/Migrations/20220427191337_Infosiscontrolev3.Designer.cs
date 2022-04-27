@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infosis_Banco.Migrations
 {
     [DbContext(typeof(AppContext))]
-    [Migration("20220427172416_Infosiscontrolev3")]
+    [Migration("20220427191337_Infosiscontrolev3")]
     partial class Infosiscontrolev3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -221,13 +221,15 @@ namespace Infosis_Banco.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Descricao")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("NVARCHAR(50)");
 
                     b.Property<decimal>("PorcentagemPadrao")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("DECIMAL");
 
                     b.Property<decimal>("ValorTipoBeneficio")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("DECIMAL");
 
                     b.HasKey("Id");
 

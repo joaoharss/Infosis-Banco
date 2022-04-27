@@ -4,7 +4,7 @@
 
 namespace Infosis_Banco.Migrations
 {
-    public partial class Infosiscontrolev4 : Migration
+    public partial class Infosiscontrolev2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
