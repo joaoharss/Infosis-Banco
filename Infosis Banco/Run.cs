@@ -22,7 +22,6 @@ namespace Infosis_Banco
             {
                 for (int linha = 2; linha <= maxLine; linha++)
                 {
-                    
                     //buscando valores da tabela Office
                     var buscaCargo = connectionDb.Cargos.FirstOrDefault(x => x.Tipo == workSheet.Cells[linha, 1].Value.ToString());
                     if (buscaCargo == null) //verifica se o valor (Type) é nulo, se for, ele preenche com os dados
@@ -35,7 +34,6 @@ namespace Infosis_Banco
                         connectionDb.SaveChanges();
                     }
 
-
                     //buscando valores da tabela ContractModality
                     var buscaModalidadeContrato = connectionDb.ModalidadeContratos.FirstOrDefault(x => x.Hora == int.Parse(workSheet.Cells[linha, 2].Value.ToString()) && x.Descricao == workSheet.Cells[linha, 3].Value.ToString());
                     if(buscaModalidadeContrato == null)
@@ -47,7 +45,6 @@ namespace Infosis_Banco
                         connectionDb.ModalidadeContratos.Add(modalidadeContrato);
                         connectionDb.SaveChanges();
                     }
-
                     
                     var buscaNivel = connectionDb.Niveis.FirstOrDefault(x=> x.Tipo == workSheet.Cells[linha, 4].Value.ToString());
                     if(buscaNivel == null)
@@ -59,7 +56,6 @@ namespace Infosis_Banco
                         connectionDb.Niveis.Add(nivel);
                         connectionDb.SaveChanges();
                     }
-                   
 
                     var auxTipoBeneficio = connectionDb.TipoBeneficios.FirstOrDefault(x => x.Descricao == workSheet.Cells[linha, 5].Value.ToString());
                     if(auxTipoBeneficio == null)
@@ -75,9 +71,7 @@ namespace Infosis_Banco
                         connectionDb.SaveChanges();
                     }
 
-
                     //CRIANDO MODALIDADE CARGO
-
                     //buscando o Id de cada entidade que encaixa na Modalidade Cargo (ModalityOffice)
                     var cargoId = connectionDb.Cargos.FirstOrDefault(x => x.Tipo == workSheet.Cells[linha, 1].Value.ToString()).Id;
                     var nivelId = connectionDb.Niveis.FirstOrDefault(x => x.Tipo == workSheet.Cells[linha, 4].Value.ToString()).Id;
@@ -92,7 +86,6 @@ namespace Infosis_Banco
 
                     connectionDb.ModalidadeCargos.Add(modalidadeCargo);
                     connectionDb.SaveChanges();
-
 
                     //pegando id de Modalidade Cargo para que possa se relacionar com a entidade Funcionário
                     var modalidadeCargoId = connectionDb.ModalidadeCargos.FirstOrDefault(x => x.CargoId == cargoId && x.ModalidadeContratoId == modalidadeContratoId && x.NivelId == nivelId).Id;
@@ -122,7 +115,6 @@ namespace Infosis_Banco
                     connectionDb.Beneficios.Add(beneficio);
                     connectionDb.SaveChanges();
 
-
                     var beneficioId = connectionDb.Beneficios.FirstOrDefault(x => x.TipoBeneficioId == tipoBeneficioId && x.NivelId == nivelId).Id;
                     var funcionarioId = connectionDb.Funcionarios.FirstOrDefault(x => x.CPF == long.Parse(workSheet.Cells[linha, 12].Value.ToString())).Id;
                     
@@ -140,7 +132,6 @@ namespace Infosis_Banco
                     connectionDb.SaveChanges();
                     }
 
-
                         //criando deposito
                         //TIRAR DÚVIDA SOBRE A VERIFICAÇÃO 
                         var depositoBeneficioId = connectionDb.DepositoBeneficios.FirstOrDefault(x => x.ValorDepositoBeneficio == decimal.Parse(workSheet.Cells[linha, 13].Value.ToString())).Id;
@@ -149,9 +140,9 @@ namespace Infosis_Banco
                         deposito.Data = Convert.ToDateTime(workSheet.Cells[linha, 16].Value.ToString());
                         deposito.DepositoBeneficioId = depositoBeneficioId; 
 
-                        connectionDb.Depositos.Add(deposito);
-                        connectionDb.SaveChanges();
-  
+                    connectionDb.Depositos.Add(deposito);
+                    connectionDb.SaveChanges();
+
                 }
             }
         }

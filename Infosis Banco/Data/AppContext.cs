@@ -7,7 +7,7 @@ namespace Infosis_Banco
     public class AppContext : DbContext
     {
         public DbSet<Beneficio> Beneficios { get; set; }
-        public DbSet<TipoBeneficio> TipoBeneficios{ get; set; }
+        public DbSet<TipoBeneficio> TipoBeneficios { get; set; }
         public DbSet<Deposito> Depositos { get; set; }
         public DbSet<DepositoBeneficio> DepositoBeneficios { get; set; }
         public DbSet<Funcionario> Funcionarios { get; set; }
@@ -16,22 +16,13 @@ namespace Infosis_Banco
         public DbSet<Nivel> Niveis { get; set; }
         public DbSet<ModalidadeContrato> ModalidadeContratos { get; set; }
 
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Data Source=WIN-LOLP65ONQT1\SQLEXPRESS;Initial Catalog=InfoSis Banco;Integrated Security=True");
         }
-        ////modelBuilder.Entity<File>()
-        //    .HasOne(s => s.Message)
-        //    .WithMany()
-        //    .HasForeignKey(e => e.Message_Id)
-
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-
             modelBuilder.Entity<Beneficio>(entity =>
             {
                 entity.HasOne(d => d.TipoBeneficio)
@@ -52,16 +43,11 @@ namespace Infosis_Banco
                 .HasForeignKey(a => a.BeneficioId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-
                 entity.HasOne(d => d.Funcionario)
                 .WithMany(p => p.DepositoBeneficios)
                 .HasForeignKey(a => a.FuncionarioId)
                 .OnDelete(DeleteBehavior.Restrict);
-
-
-
             });
-
 
             modelBuilder.Entity<Funcionario>(entity =>
             {
@@ -88,8 +74,6 @@ namespace Infosis_Banco
                 .HasForeignKey(a => a.NivelId)
                 .OnDelete(DeleteBehavior.Restrict);
             });
-
-
         }
     }
 }
