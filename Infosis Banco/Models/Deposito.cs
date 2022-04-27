@@ -9,7 +9,7 @@ namespace Infosis_Banco
         public DateTime Data { get; set; }
         [ForeignKey("DepositoBeneficio")]
         public int DepositoBeneficioId { get; set; }
-        public DepositoBeneficio DepositoBeneficio { get; set; }
+        public virtual DepositoBeneficio DepositoBeneficio { get; set; }
 
       
     }

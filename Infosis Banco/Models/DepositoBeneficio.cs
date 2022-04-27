@@ -9,10 +9,9 @@ namespace Infosis_Banco
         public  DateTime Vencimento { get; set; }
         [ForeignKey("Beneficio")]
         public int BeneficioId { get; set; }
-        public Beneficio Beneficio { get; set; }
+        public virtual Beneficio Beneficio { get; set; }
         [ForeignKey("Funcionario")]
         public int FuncionarioId { get; set; }
-        public Funcionario Funcionario { get; set; }
-
+        public virtual Funcionario Funcionario { get; set; }
     }
 }

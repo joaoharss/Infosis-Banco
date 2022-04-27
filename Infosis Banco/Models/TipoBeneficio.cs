@@ -6,7 +6,6 @@
         public string Descricao { get; set; }
         public decimal ValorTipoBeneficio { get; set; }
         public decimal PorcentagemPadrao { get; set; }
-        public IEnumerable<Beneficio> Beneficios { get; set; }   
-
+        public IEnumerable<Beneficio> Beneficios { get; set; }
     }
 }

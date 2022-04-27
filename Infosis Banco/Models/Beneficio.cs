@@ -7,10 +7,10 @@ namespace Infosis_Banco
         public int Id { get; set; }
         [ForeignKey("TipoBeneficio")]
         public int TipoBeneficioId { get; set; }
-        public TipoBeneficio TipoBeneficio { get; set; }
+        public virtual TipoBeneficio TipoBeneficio { get; set; }
         [ForeignKey("Nivel")]
         public int NivelId { get; set; }
-        public Nivel Nivel { get; set; }
+        public virtual Nivel Nivel { get; set; }
         public IEnumerable<DepositoBeneficio> DepositoBeneficios { get; set; }
     }
 }

@@ -14,7 +14,7 @@ namespace Infosis_Banco
         public Cargo Cargo { get; set; }
         [ForeignKey("ModalidadeContrato")]
         public int ModalidadeContratoId { get; set; }
-        public ModalidadeContrato ModalidadeContrato { get; set; }
+        public virtual ModalidadeContrato ModalidadeContrato { get; set; }
         public IEnumerable<Funcionario> Funcionarios { get; set; }
 
 
