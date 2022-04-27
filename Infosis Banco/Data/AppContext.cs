@@ -29,6 +29,10 @@ namespace Infosis_Banco
             modelBuilder.ApplyConfiguration(new FuncionarioMapping());
             modelBuilder.ApplyConfiguration(new ModalidadeCargoMapping());
             modelBuilder.ApplyConfiguration(new TipoBeneficioMapping());
+            modelBuilder.ApplyConfiguration(new CargoMapping());
+            modelBuilder.ApplyConfiguration(new ModalidadeContratoMapping());
+            modelBuilder.ApplyConfiguration(new NivelMapping());
+            modelBuilder.ApplyConfiguration(new DepositoMapping());
         }
     }
 }
