@@ -237,13 +237,13 @@ namespace Infosis_Banco.Migrations
                     b.HasOne("Infosis_Banco.Nivel", "Nivel")
                         .WithMany("Beneficios")
                         .HasForeignKey("NivelId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Infosis_Banco.TipoBeneficio", "TipoBeneficio")
                         .WithMany("Beneficios")
                         .HasForeignKey("TipoBeneficioId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Nivel");
@@ -267,13 +267,13 @@ namespace Infosis_Banco.Migrations
                     b.HasOne("Infosis_Banco.Beneficio", "Beneficio")
                         .WithMany("DepositoBeneficios")
                         .HasForeignKey("BeneficioId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Infosis_Banco.Funcionario", "Funcionario")
                         .WithMany("DepositoBeneficios")
                         .HasForeignKey("FuncionarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Beneficio");
@@ -286,7 +286,7 @@ namespace Infosis_Banco.Migrations
                     b.HasOne("Infosis_Banco.ModalidadeCargo", "ModalidadeCargo")
                         .WithMany("Funcionarios")
                         .HasForeignKey("ModalidadeCargoId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("ModalidadeCargo");
@@ -297,19 +297,19 @@ namespace Infosis_Banco.Migrations
                     b.HasOne("Infosis_Banco.Cargo", "Cargo")
                         .WithMany("ModalidadeCargos")
                         .HasForeignKey("CargoId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Infosis_Banco.ModalidadeContrato", "ModalidadeContrato")
                         .WithMany("ModalidadeCargos")
                         .HasForeignKey("ModalidadeContratoId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Infosis_Banco.Nivel", "Nivel")
                         .WithMany("ModalidadeCargos")
                         .HasForeignKey("NivelId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Cargo");

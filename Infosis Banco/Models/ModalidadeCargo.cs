@@ -1,14 +1,20 @@
-﻿namespace Infosis_Banco
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+
+namespace Infosis_Banco
 {
     public class ModalidadeCargo
     {
         public int Id { get; set; }
-        public Nivel Nivel { get; set; }
+        [ForeignKey("Nivel")]
         public int NivelId { get; set; }
-        public Cargo Cargo { get; set; }
+        public Nivel Nivel { get; set; }
+        [ForeignKey("Cargo")]
         public int CargoId { get; set; }
-        public ModalidadeContrato ModalidadeContrato { get; set; }
+        public Cargo Cargo { get; set; }
+        [ForeignKey("ModalidadeContrato")]
         public int ModalidadeContratoId { get; set; }
+        public ModalidadeContrato ModalidadeContrato { get; set; }
         public IEnumerable<Funcionario> Funcionarios { get; set; }
 
 

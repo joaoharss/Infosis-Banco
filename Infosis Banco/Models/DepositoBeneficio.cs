@@ -1,13 +1,18 @@
-﻿namespace Infosis_Banco
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Infosis_Banco
 {
     public class DepositoBeneficio
     {
         public int Id { get; set; }
         public decimal ValorDepositoBeneficio { get; set; }
-        public  DateTime Vencimento { get; set; } //alterar o int para data
-        public virtual Beneficio Beneficio { get; set; }
+        public  DateTime Vencimento { get; set; }
+        [ForeignKey("Beneficio")]
         public int BeneficioId { get; set; }
-        public Funcionario Funcionario { get; set; }
+        public Beneficio Beneficio { get; set; }
+        [ForeignKey("Funcionario")]
         public int FuncionarioId { get; set; }
+        public Funcionario Funcionario { get; set; }
+
     }
 }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infosis_Banco.Migrations
 {
     [DbContext(typeof(AppContext))]
-    [Migration("20220426192337_infosiscontrolev2")]
-    partial class infosiscontrolev2
+    [Migration("20220427165851_Infosiscontrolev1")]
+    partial class Infosiscontrolev1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -275,7 +275,7 @@ namespace Infosis_Banco.Migrations
                     b.HasOne("Infosis_Banco.Funcionario", "Funcionario")
                         .WithMany("DepositoBeneficios")
                         .HasForeignKey("FuncionarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Beneficio");
