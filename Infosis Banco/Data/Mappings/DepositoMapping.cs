@@ -12,7 +12,6 @@ namespace Infosis_Banco.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<Deposito> builder)
         {
-            throw new NotImplementedException();
         }
     }
 }
