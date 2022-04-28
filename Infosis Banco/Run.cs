@@ -89,7 +89,7 @@ namespace Infosis_Banco
 
                     //pegando id de Modalidade Cargo para que possa se relacionar com a entidade Funcionário
                     var modalidadeCargoId = connectionDb.ModalidadeCargos.FirstOrDefault(x => x.CargoId == cargoId && x.ModalidadeContratoId == modalidadeContratoId && x.NivelId == nivelId).Id;
-                    var buscaFuncionario = connectionDb.Funcionarios.FirstOrDefault(x => x.CPF == long.Parse(workSheet.Cells[linha, 12].Value.ToString()));
+                    var buscaFuncionario = connectionDb.Funcionarios.FirstOrDefault(x => x.CPF == workSheet.Cells[linha, 12].Value.ToString());
                     if (buscaFuncionario == null)
                     {
                         //criando funcionário
@@ -98,7 +98,7 @@ namespace Infosis_Banco
                         funcionario.Sobrenome = workSheet.Cells[linha, 9].Value.ToString();
                         funcionario.Endereco = workSheet.Cells[linha, 10].Value.ToString();
                         funcionario.Telefone = long.Parse(workSheet.Cells[linha, 11].Value.ToString());
-                        funcionario.CPF = long.Parse(workSheet.Cells[linha, 12].Value.ToString());
+                        funcionario.CPF = workSheet.Cells[linha, 12].Value.ToString();
                         funcionario.ModalidadeCargoId = modalidadeCargoId; //buscando o id da modalidade cargo para atribuir ao funcionário
 
                         connectionDb.Funcionarios.Add(funcionario);
@@ -116,7 +116,7 @@ namespace Infosis_Banco
                     connectionDb.SaveChanges();
 
                     var beneficioId = connectionDb.Beneficios.FirstOrDefault(x => x.TipoBeneficioId == tipoBeneficioId && x.NivelId == nivelId).Id;
-                    var funcionarioId = connectionDb.Funcionarios.FirstOrDefault(x => x.CPF == long.Parse(workSheet.Cells[linha, 12].Value.ToString())).Id;
+                    var funcionarioId = connectionDb.Funcionarios.FirstOrDefault(x => x.CPF == workSheet.Cells[linha, 12].Value.ToString()).Id;
                     
                     var buscaDepositoBeneficio = connectionDb.DepositoBeneficios.FirstOrDefault(x => x.ValorDepositoBeneficio == int.Parse(workSheet.Cells[linha, 13].Value.ToString()));
                     if(buscaDepositoBeneficio == null)
