@@ -12,6 +12,10 @@ namespace Infosis_Banco.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<Cargo> builder)
         {
+            builder.Property(d => d.Tipo)
+                .HasColumnType("NVARCHAR")
+                .HasMaxLength(30)
+                .IsRequired();
         }
     }
 }
