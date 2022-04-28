@@ -87,9 +87,22 @@ namespace Infosis_Banco
                     connectionDb.ModalidadeCargos.Add(modalidadeCargo);
                     connectionDb.SaveChanges();
 
+                    Endereco endereco = new Endereco();
+                    endereco.Rua = workSheet.Cells[linha, 16].Value.ToString();
+                    endereco.Bairro = workSheet.Cells[linha, 17].Value.ToString();
+                    endereco.Cidade = workSheet.Cells[linha, 18].Value.ToString();
+                    endereco.Numero = workSheet.Cells[linha, 19].Value.ToString();
+                    endereco.CEP = workSheet.Cells[linha, 20].Value.ToString();
+                    endereco.UF = workSheet.Cells[linha, 21].Value.ToString();
+
+                    connectionDb.Enderecos.Add(endereco);
+                    connectionDb.SaveChanges();
+
+
                     //pegando id de Modalidade Cargo para que possa se relacionar com a entidade Funcionário
                     var modalidadeCargoId = connectionDb.ModalidadeCargos.FirstOrDefault(x => x.CargoId == cargoId && x.ModalidadeContratoId == modalidadeContratoId && x.NivelId == nivelId).Id;
                     var buscaFuncionario = connectionDb.Funcionarios.FirstOrDefault(x => x.CPF == workSheet.Cells[linha, 12].Value.ToString());
+                    var enderecoId = connectionDb.Enderecos.FirstOrDefault(x => x.CEP == workSheet.Cells[linha, 20].Value.ToString()).Id;
                     if (buscaFuncionario == null)
                     {
                         //criando funcionário
@@ -98,6 +111,7 @@ namespace Infosis_Banco
                         funcionario.Sobrenome = workSheet.Cells[linha, 9].Value.ToString();
                         funcionario.Telefone = long.Parse(workSheet.Cells[linha, 11].Value.ToString());
                         funcionario.CPF = workSheet.Cells[linha, 12].Value.ToString();
+                        funcionario.EnderecoId = enderecoId;
                         funcionario.ModalidadeCargoId = modalidadeCargoId; //buscando o id da modalidade cargo para atribuir ao funcionário
 
                         connectionDb.Funcionarios.Add(funcionario);
@@ -117,33 +131,33 @@ namespace Infosis_Banco
                     var beneficioId = connectionDb.Beneficios.FirstOrDefault(x => x.TipoBeneficioId == tipoBeneficioId && x.NivelId == nivelId).Id;
                     var funcionarioId = connectionDb.Funcionarios.FirstOrDefault(x => x.CPF == workSheet.Cells[linha, 12].Value.ToString()).Id;
                     
-                    var buscaDepositoBeneficio = connectionDb.DepositoBeneficios.FirstOrDefault(x => x.ValorDepositoBeneficio == int.Parse(workSheet.Cells[linha, 13].Value.ToString()));
+                    var buscaDepositoBeneficio = connectionDb.DepositoBeneficios.FirstOrDefault(x => x.ValorDepositoBeneficio == decimal.Parse(workSheet.Cells[linha, 14].Value.ToString()));
                     if(buscaDepositoBeneficio == null)
                     {
                         //criando DepositVerification (depositoBeneficio)
                         DepositoBeneficio depositoBeneficio = new DepositoBeneficio();
-                        depositoBeneficio.ValorDepositoBeneficio = int.Parse(workSheet.Cells[linha, 13].Value.ToString());
-                        depositoBeneficio.Vencimento = Convert.ToDateTime(workSheet.Cells[linha, 14].Value.ToString());
+                        depositoBeneficio.ValorDepositoBeneficio = decimal.Parse(workSheet.Cells[linha, 14].Value.ToString());
+                        depositoBeneficio.Vencimento = Convert.ToDateTime(workSheet.Cells[linha, 13].Value.ToString());
                         depositoBeneficio.BeneficioId = beneficioId;
                         depositoBeneficio.FuncionarioId = funcionarioId;
 
                     connectionDb.DepositoBeneficios.Add(depositoBeneficio);
                     connectionDb.SaveChanges();
+
                     }
 
                         //criando deposito
                         //TIRAR DÚVIDA SOBRE A VERIFICAÇÃO 
-                        var depositoBeneficioId = connectionDb.DepositoBeneficios.FirstOrDefault(x => x.ValorDepositoBeneficio == decimal.Parse(workSheet.Cells[linha, 13].Value.ToString())).Id;
+                        var depositoBeneficioId = connectionDb.DepositoBeneficios.FirstOrDefault(x => x.ValorDepositoBeneficio == decimal.Parse(workSheet.Cells[linha, 14].Value.ToString())).Id;
                         Deposito deposito = new Deposito();
-                        deposito.ValorDepositoFuncionario = decimal.Parse(workSheet.Cells[linha, 15].Value.ToString());
-                        deposito.Data = Convert.ToDateTime(workSheet.Cells[linha, 16].Value.ToString());
+                        deposito.ValorDepositoFuncionario = decimal.Parse(workSheet.Cells[linha, 14].Value.ToString());
+                        deposito.Data = Convert.ToDateTime(workSheet.Cells[linha, 15].Value.ToString());
                         deposito.DepositoBeneficioId = depositoBeneficioId; 
 
                     connectionDb.Depositos.Add(deposito);
                     connectionDb.SaveChanges();
-
                 }
-            }
+           
         }
     }
 }
