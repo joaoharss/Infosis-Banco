@@ -15,9 +15,11 @@ namespace Infosis_Banco.Data.Mappings
             builder.Property(d => d.Descricao).HasColumnType("NVARCHAR")
                 .HasMaxLength(50)
                 .IsRequired();
+
             builder.Property(b => b.ValorTipoBeneficio)
                 .HasColumnType("DECIMAL")
                 .IsRequired();
+
             builder.Property(c => c.PorcentagemPadrao)
                 .HasColumnType("DECIMAL")
                 .IsRequired();
