@@ -96,7 +96,6 @@ namespace Infosis_Banco
                         Funcionario funcionario = new Funcionario();
                         funcionario.Nome = workSheet.Cells[linha, 8].Value.ToString();
                         funcionario.Sobrenome = workSheet.Cells[linha, 9].Value.ToString();
-                        funcionario.Endereco = workSheet.Cells[linha, 10].Value.ToString();
                         funcionario.Telefone = long.Parse(workSheet.Cells[linha, 11].Value.ToString());
                         funcionario.CPF = workSheet.Cells[linha, 12].Value.ToString();
                         funcionario.ModalidadeCargoId = modalidadeCargoId; //buscando o id da modalidade cargo para atribuir ao funcionário
