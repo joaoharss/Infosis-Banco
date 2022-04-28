@@ -12,6 +12,15 @@ namespace Infosis_Banco.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<ModalidadeContrato> builder)
         {
+            builder.Property(d => d.Hora)
+                .HasColumnType("INT")
+                .HasMaxLength(2)
+                .IsRequired();
+
+            builder.Property(d => d.Descricao)
+                .HasColumnType("NVARCHAR")
+                .HasMaxLength(50)
+                .IsRequired();
         }
     }
 }
