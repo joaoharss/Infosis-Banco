@@ -13,9 +13,9 @@ namespace Infosis_Banco.Data.Mappings
         public void Configure(EntityTypeBuilder<Funcionario> builder)
         {
             builder.HasOne(d => d.ModalidadeCargo)
-            .WithMany(p => p.Funcionarios)
-            .HasForeignKey(a => a.ModalidadeCargoId)
-            .OnDelete(DeleteBehavior.Restrict);
+                .WithMany(p => p.Funcionarios)
+                .HasForeignKey(a => a.ModalidadeCargoId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(d => d.Endereco)
                 .WithMany(p => p.Funcionarios)
