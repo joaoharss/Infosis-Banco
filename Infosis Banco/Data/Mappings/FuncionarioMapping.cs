@@ -17,6 +17,11 @@ namespace Infosis_Banco.Data.Mappings
             .HasForeignKey(a => a.ModalidadeCargoId)
             .OnDelete(DeleteBehavior.Restrict);
 
+            builder.HasOne(d => d.Endereco)
+                .WithMany(p => p.Funcionarios)
+                .HasForeignKey(a => a.EnderecoId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             builder.Property(d => d.Nome)
                 .HasColumnType("NVARCHAR")
                 .HasMaxLength(100)
