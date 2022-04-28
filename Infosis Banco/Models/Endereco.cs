@@ -8,7 +8,7 @@
         public string Cidade { get; set; }
         public string? Numero { get; set; }
         public string CEP { get; set; }
-        public char UF { get; set; }
+        public string UF { get; set; }
         public IEnumerable<Funcionario> Funcionarios{ get; set; }
     }
 }
