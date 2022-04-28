@@ -16,6 +16,7 @@ namespace Infosis_Banco
         public DbSet<Cargo> Cargos { get; set; }
         public DbSet<Nivel> Niveis { get; set; }
         public DbSet<ModalidadeContrato> ModalidadeContratos { get; set; }
+        public DbSet<Endereco> Enderecos { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -33,6 +34,7 @@ namespace Infosis_Banco
             modelBuilder.ApplyConfiguration(new ModalidadeContratoMapping());
             modelBuilder.ApplyConfiguration(new NivelMapping());
             modelBuilder.ApplyConfiguration(new DepositoMapping());
+            modelBuilder.ApplyConfiguration(new EnderecoMapping());
         }
     }
 }
