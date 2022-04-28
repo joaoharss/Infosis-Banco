@@ -16,6 +16,26 @@ namespace Infosis_Banco.Data.Mappings
             .WithMany(p => p.Funcionarios)
             .HasForeignKey(a => a.ModalidadeCargoId)
             .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Property(d => d.Nome)
+                .HasColumnType("NVARCHAR")
+                .HasMaxLength(100)
+                .IsRequired();
+
+            builder.Property(d => d.Sobrenome)
+                .HasColumnType("NVARCHAR")
+                .HasMaxLength(100)
+                .IsRequired();
+
+            builder.Property(d => d.Telefone)
+                .HasColumnType("BIGINT")
+                .HasMaxLength(12)
+                .IsRequired();
+
+            builder.Property(d => d.CPF)
+                .HasColumnType("NVARCHAR")
+                .HasMaxLength(13)
+                .IsRequired();
         }
     }
 }
