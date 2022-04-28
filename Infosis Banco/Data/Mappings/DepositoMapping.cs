@@ -12,6 +12,13 @@ namespace Infosis_Banco.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<Deposito> builder)
         {
+            builder.Property(d => d.ValorDepositoFuncionario)
+                .HasColumnType("DECIMAL")
+                .IsRequired();
+
+            builder.Property(d => d.Data)
+                .HasColumnType("DATETIME")
+                .IsRequired();
         }
     }
 }
