@@ -12,7 +12,34 @@ namespace Infosis_Banco.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<Endereco> builder)
         {
+            builder.Property(d => d.Rua)
+                .HasColumnType("NVARCHAR")
+                .HasMaxLength(150)
+                .IsRequired();
 
+            builder.Property(d => d.Bairro)
+                .HasColumnType("NVARCHAR")
+                .HasMaxLength(50)
+                .IsRequired();
+
+            builder.Property(d => d.Cidade)
+                .HasColumnType("NVARCHAR")
+                .HasMaxLength(50)
+                .IsRequired();
+
+            builder.Property(d => d.Numero)
+                .HasColumnType("NVARCHAR")
+                .HasMaxLength(50);
+
+            builder.Property(d => d.CEP)
+                .HasColumnType("NVARCHAR")
+                .HasMaxLength(10)
+                .IsRequired();
+
+            builder.Property(d => d.UF)
+                .HasColumnType("CHAR")
+                .HasMaxLength(2)
+                .IsRequired();
         }
     }
 }
