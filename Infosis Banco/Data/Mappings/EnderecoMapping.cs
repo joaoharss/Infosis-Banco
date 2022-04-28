@@ -37,7 +37,7 @@ namespace Infosis_Banco.Data.Mappings
                 .IsRequired();
 
             builder.Property(d => d.UF)
-                .HasColumnType("CHAR")
+                .HasColumnType("NVARCHAR")
                 .HasMaxLength(2)
                 .IsRequired();
         }
